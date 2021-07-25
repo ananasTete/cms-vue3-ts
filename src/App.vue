@@ -1,6 +1,7 @@
 <template>
   <div>
     <h2>{{ $store.state.name }}</h2>
+    hello
     <router-link to="/login">登录</router-link>
     <router-link to="/main">首页</router-link>
     <router-view></router-view>
