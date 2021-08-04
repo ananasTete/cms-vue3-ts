@@ -1,28 +1,31 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "strict": true,
-    "jsx": "preserve",
-    "importHelpers": true,
-    "moduleResolution": "node",
-    "skipLibCheck": true,
-    "esModuleInterop": true,
+    //编译选项
+    "target": "esnext", //目标：将ts代码转为最新的es版本
+    "module": "esnext", //模块化方案：es_modules,(umd:多种模块化)
+    "strict": true, //严格模式
+    "jsx": "preserve", //如何处理jsx,(preserve:不处理)
+    "importHelpers": true, //辅助导入
+    "moduleResolution": "node", //模块解析方式
+    "skipLibCheck": true, //跳过第三方库的类型检测
+    "esModuleInterop": true, //是否允许es_module和commonjs一起使用
     "allowSyntheticDefaultImports": true,
-    "sourceMap": true,
-    "baseUrl": ".",
+    "sourceMap": true, //打包后要不要生成映射文件
+    "baseUrl": ".", //.表示以当前文件的路径解析文件中的路径
     "types": ["webpack-env"],
     "paths": {
+      //路径解析，即webpack中的路径别名，@指代了src
       "@/*": ["src/*"]
-    },
+    }, //指定项目中可以使用哪些库中的类型(window/Doucument...)
     "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
   "include": [
-    "src/**/*.ts",
+    //需要解析ts的文件的格式
+    "src/**/*.ts", //src下所有的.ts文件
     "src/**/*.tsx",
-    "src/**/*.vue",
+    "src/**/*.vue", //src下所有的.vue文件
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"] //不需要解析ts的文件的格式
 }

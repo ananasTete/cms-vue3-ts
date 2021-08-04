@@ -1,14 +1,7 @@
 <template>
-  <div>
-    <h2>{{ $store.state.name }}</h2>
-    <router-link to="/login">登录</router-link>
-    <router-link to="/main">首页</router-link>
+  <div id="app">
     <router-view></router-view>
   </div>
-
-  <el-button>默认按钮</el-button>
-  <el-button type="primary">主要按钮</el-button>
-  <el-button type="success">成功按钮</el-button>
 </template>
 
 <script lang="ts">
@@ -19,4 +12,9 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less"></style>
+<style scoped lang="less">
+#app {
+  width: 100%;
+  height: 100%;
+}
+</style>

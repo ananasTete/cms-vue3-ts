@@ -1,29 +1,20 @@
-# cms-vue3-ts
+### 登陆视图
 
-## Project setup
+1.  用 element-plus 搭建页面架构
+2.  功能一: 输入表单后自动验证数据(组件原生)
+3.  功能二：登录按钮判断如何登录并调用对应子组件中的函数进行登录(ref)
+4.  功能三：表单子组件中定义用于登录操作的函数(1.验证 2.是否记住密码 3.提交)
+    3.1 通过 ref 调用组件的方法进行登陆前验证
+    3.2 封装操作缓存数据的类和对象(utils/cache.ts)
+    3.3 将账号密码发送到服务器需要添加 token 等，请求回来的数据还要保存，所以将操作放到 vuex 中，在 vuex 中定义一个 login 模块并定义一个 action 用于发送验证请求和保存数据
+5.  功能四：视图的各种网络请求都封装到 network 目录，一个视图一个目录。在其中封装该视图进行 网络请求的各种方法。Vuex 中的 action 调用 network 封装好的登录方法进行发送验证请求
 
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-
-```
-npm run build
-```
-
-### Lints and fixes files
-
-```
-npm run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+登录按钮方法 
+   -> 选择调用表单子组件登录方法 
+         -> 通过 ref 调用组件的方法进行登陆前验证
+         -> 调用操作缓存数据的对象的方法实现记住密码（仅账号登录）
+         -> 调用 vuex 中的登录 action
+                -> 调用 network 中的登录方法将账号密码发送到服务器并返回数据,返回数据保存到vux并缓存token
+                -> 调用 network 中的请求用户信息的方法,返回数据保存到vux并缓存用户信息
+                -> 调用network中请求首页菜单数据的方法,返回数据保存到vux并缓存菜单数据，跳转到首页
+刷新页面后vuex保存的数据会丢失(token、用户信息等等)，但缓存的数据不会。所以在vuex的login模块定义一个action取到缓存中的数据定义给vuex中的数据，在根模块定义分发此action的分发，在main.ts中调用。这样每次刷新页面调用main.ts中的方法 -> 分发重新赋值的action，就会将缓存的token、用户信息等重新赋值到vuex中
