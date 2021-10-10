@@ -3,15 +3,52 @@
  */
 
 // 给根模块中state声明类型
-interface RootState {
-  name: string
+interface RootStateType {
+  entireDepartment: any[]
+  entireRole: any[]
+  entireMenu: any[]
 }
 
 // 给login模块中state声明类型
-interface loginState {
+interface loginStateType {
   userMenus: any
   token: string
   userInfo: any
+  permissions: string[]
 }
 
-export { RootState, loginState }
+//给dataTable模块中state声明类型
+interface tableStateType {
+  usersList: any[]
+  usersCount: number
+  roleList: any[]
+  roleCount: number
+  goodsList: any[]
+  goodsCount: number
+  menuList: any[]
+  menuCount: number
+}
+
+//给dashboard模块中state声明类型
+interface dashboardStateType {
+  categoryGoodsCount: any[]
+  categoryGoodsSale: any[]
+  categoryGoodsFavor: any[]
+  addressGoodsSale: any[]
+}
+
+// 定义store的类型
+interface RootWithModule {
+  loginModule: loginStateType
+  tableModule: tableStateType
+  dashboardModule: dashboardStateType
+}
+type StoreType = RootStateType & RootWithModule //合并
+
+export {
+  StoreType,
+  RootStateType,
+  loginStateType,
+  tableStateType,
+  dashboardStateType
+}

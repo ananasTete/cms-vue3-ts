@@ -10,5 +10,7 @@ import { setupStore } from '@/store/index'
 
 const app = createApp(App)
 register(app)
-app.use(router).use(store).mount('#app')
+app.use(store)
 setupStore()
+app.use(router) //顺序不能变，调用setupStore()方法要在注册router之前
+app.mount('#app')

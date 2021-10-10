@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { AxiosInstance, AxiosRequestConfig } from 'axios'
+import type { AxiosInstance } from 'axios'
 import { ElLoading } from 'element-plus'
 import { ILoadingInstance } from 'element-plus/lib/el-loading/src/loading.type'
 import { Interceptors, myRequestConfig } from './type'
@@ -70,7 +70,7 @@ class myRequest {
     )
   }
 
-  request<T>(config: myRequestConfig<T>): Promise<T> {
+  request<T = any>(config: myRequestConfig<T>): Promise<T> {
     return new Promise((resolve, reject) => {
       if (config.interceptors?.requestInterceptor) {
         config = config.interceptors.requestInterceptor(config)
@@ -80,37 +80,35 @@ class myRequest {
       }
       this.instance
         .request<any, T>(config)
-        //request方法返回的res是AxiosResponse<any>类型,不是T在request函数的第二个泛型可以指定res的类型
         .then((res) => {
           if (config.interceptors?.responseInterceptor) {
-            res = config.interceptors.responseInterceptor(res) //res是T类型但这个拦截器函数接收的还是AxiosResponse类型，所以暂时先改掉它的声明
+            res = config.interceptors.responseInterceptor(res)
+            //res改为了T类型，但在类型声明中还是AxiosResponse，需要将T传到类型声明中
           }
           this.showLoading = false
           resolve(res)
+          //这里的request方法返回的res是AxiosResponse<any>类型,和T类型有冲突
+          //在request函数的第二个泛型可以指定res的类型
         })
         .catch((err) => {
           this.showLoading = false
           reject(err)
+          return err
         })
     })
   }
 
-  //判断一下本次调用中是否传入了interceptors拦截器对象及requestInter()方法，
-  //传入了则先调用此拦截器函数传入config拦截一次，将拦截后返回的config再通过axios实例发送请求。
-  //同理，在请求后，如果传入的实参中有interceptors拦截器对象及responseInterceptor()方法，
-  //先对请求结果进行拦截。将拦截后返回请求结果再做处理。
-
-  //定义四种不同的请求模式,去调用request方法
-  get<T>(config: myRequestConfig<T>): Promise<T> {
+  //定义四种不同的请求模式去调用request方法,这样实例根据请求类型直接调用对应的方法即可，不需要在config指定类型
+  get<T = any>(config: myRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'GET' })
   }
-  post<T>(config: myRequestConfig<T>): Promise<T> {
+  post<T = any>(config: myRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'POST' })
   }
-  delete<T>(config: myRequestConfig<T>): Promise<T> {
+  delete<T = any>(config: myRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'DELETE' })
   }
-  patch<T>(config: myRequestConfig<T>): Promise<T> {
+  patch<T = any>(config: myRequestConfig<T>): Promise<T> {
     return this.request<T>({ ...config, method: 'PATCH' })
   }
 }
