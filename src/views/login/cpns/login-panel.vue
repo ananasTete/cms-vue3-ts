@@ -2,6 +2,7 @@
   <div class="login-panel">
     <!--标题-->
     <h1 class="panel-text">后台管理系统</h1>
+
     <!--登录框-->
     <el-tabs type="border-card" stretch v-model="currentTab">
       <el-tab-pane name="account">

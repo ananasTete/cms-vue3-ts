@@ -74,7 +74,7 @@ export default defineComponent({
       //点击创建按钮时props.defaultInfo传过来的是一个空对象，编辑按钮则是一个
       //包含了表单数据的对象，可以通过判断是否有数据判断是新建操作还是编辑操作
       if (Object.keys(props.defaultInfo).length) {
-        //编辑
+        // 编辑操作
         console.log('编辑用户')
         store.dispatch('tableModule/updatePageDataAction', {
           pageName: props.pageName,
@@ -82,7 +82,7 @@ export default defineComponent({
           id: props.defaultInfo.id
         })
       } else {
-        // 新建
+        // 新建操作
         console.log('新建用户')
         console.log({ ...formData.value, ...props.otherInfo })
         store.dispatch('tableModule/createPageDataAction', {

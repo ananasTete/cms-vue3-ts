@@ -139,7 +139,7 @@ export default defineComponent({
     getPageData() //进入页面时默认查询所有数据，再点击搜索和重置按钮进行查询
 
     /**
-     * 第三部分：从vuex获取请求到的数据数据
+     * 第三部分：从vuex获取请求到的数据
      */
     //导入表单配置数据，从vuex拿到请求到的数据通过prop传给组件
     const dataList = computed(() =>

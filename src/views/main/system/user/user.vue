@@ -60,6 +60,7 @@ export default defineComponent({
       )
       passwordItem!.isHidden = false
     }
+    //点击编辑按钮时调用此函数
     function updateCallBack() {
       const passwordItem = modalFormConfig.formItem.find(
         (item) => item.field === 'password'

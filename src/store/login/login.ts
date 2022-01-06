@@ -68,7 +68,7 @@ const loginModule: Module<loginStateType, RootStateType> = {
       // console.log(payload)
     },
 
-    //刷新页面后会重新调用的action，由于刷新后vuex中保存的数据会消失，在这里
+    //刷新页面后会重新调用的action，由于刷新后会重新加载vue实例，vuex中保存的数据会消失，在这里
     //将locahe中保存的数据再赋给vuex中的数据。还分发了请求预请求信息的action
     loadLocalLogin({ commit, dispatch }) {
       const token = localCache.getCache('token')

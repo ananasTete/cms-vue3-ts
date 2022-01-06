@@ -30,8 +30,6 @@ class myRequest {
     //定义每个axios实例都需要的拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        //添加token
-
         //添加loading
         if (this.showLoading) {
           this.loadingInstance = ElLoading.service({
